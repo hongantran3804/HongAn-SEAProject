@@ -9,26 +9,35 @@ import {
   myListsBtn,
 } from "./domElements.js";
 import { getMyLists, saveCurFilmData } from "./storage.js";
-import { addToList } from "./utils.js";
+import { addRemoveInList } from "./utils.js";
 import { state } from "./utils.js";
 
 function setGenre(genreSet) {
   if (state.selectedGenre !== "All Genres") {
     filterGenreBtn.innerHTML = `<option value=${state.selectedGenre}>${state.selectedGenre}</option>`;
+    filterGenreBtn.innerHTML += `<option value="All Genres">All Genres</option>`;
+  } else {
+    filterGenreBtn.innerHTML = `<option value="All Genres">All Genres</option>`;
   }
-
-  filterGenreBtn.innerHTML += `<option value=${"All Genres"}>All Genres</option>`;
   for (const genre of genreSet) {
-    if (genre === state.selectedGenre) continue;
+    if (genre === state.selectedGenre) {
+      continue;
+    }
     filterGenreBtn.innerHTML += `
     <option value=${genre}>${genre}</option>
-        
     `;
   }
 }
 
 export function showData(data) {
-  console.log(state.curPage);
+  const genreSet = new Set();
+  mainTitle.innerText = `${state.selectedGenre} (${data.length})`;
+  filmsContainer.innerHTML = "";
+  myListsBtn.innerHTML =
+    "MY LISTS " +
+    (Object.keys(getMyLists()).length > 0
+      ? `(${Object.keys(getMyLists()).length})`
+      : "");
   if (data.length === 0) {
     filmsContainer.innerHTML = `
             <div class="no-data">
@@ -40,9 +49,6 @@ export function showData(data) {
     return;
   }
 
-  const genreSet = new Set();
-  mainTitle.innerText = `${state.selectedGenre} (${data.length})`;
-  filmsContainer.innerHTML = "";
   if (state.curPage > 0) {
     prevBtn.style.borderColor = "white";
   } else {
@@ -92,7 +98,11 @@ export function showData(data) {
         </button>
       </a>
       <button class="add-to-list" id="${film.original_title}">
-        ${film.original_title in getMyLists() ? "Added" : "Add to My List"}
+        ${
+          film.original_title in getMyLists()
+            ? "Remove from My List"
+            : "Add to My List"
+        }
       </button>
     </div>
   </div>
@@ -105,13 +115,9 @@ export function showData(data) {
     }
   });
   document.querySelectorAll(".add-to-list").forEach((btn) => {
-    btn.addEventListener("click", addToList);
+    btn.addEventListener("click", addRemoveInList);
   });
-  myListsBtn.innerHTML =
-    "MY LISTS " +
-    (Object.keys(getMyLists()).length > 0
-      ? `(${Object.keys(getMyLists()).length})`
-      : "");
+
   if (filmsContainer.children.length >= 4) {
     filmsContainer.style.overflowY = "scroll";
   } else {

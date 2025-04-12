@@ -1,17 +1,28 @@
 import { filmsData } from "../data/films.js";
-import { saveMyLists, getCurFilmData, getMyLists } from "./storage.js";
+import {
+  saveMyLists,
+  getCurFilmData,
+  getMyLists,
+  saveCurFilmData,
+} from "./storage.js";
 import { showData } from "./ui.js";
-import { searchInput } from "./domElements.js";
+import { myListsBtn, searchInput } from "./domElements.js";
 import { sortRatingBtn } from "./domElements.js";
 const state = {
   selectedGenre: "All Genres",
   curPage: 0,
 };
-function addToList(e) {
-  if (e.target.innerText === "Added") {
+function addRemoveInList(e) {
+  console.log(e.target.innerText);
+  const myLists = getMyLists();
+  if (e.target.innerText === "Remove from My List") {
+    delete myLists[e.target.id];
+    const curFilmData = getCurFilmData();
+    saveMyLists(myLists);
+    saveCurFilmData();
+    showData(curFilmData.filter((film) => film.original_title !== e.target.id));
     return;
   }
-  const myLists = getMyLists();
 
   const filmTitle = e.target.id;
   const filmObject = filmsData.find(
@@ -38,11 +49,9 @@ function search() {
       String(film.director).toLowerCase().includes(searchValue) ||
       searchValue.toLowerCase() === "director"
     ) {
-      console.log(film.original_title);
       return true;
     }
   });
-  console.log(filteredData);
   showData(filteredData);
   return;
 }
@@ -66,7 +75,6 @@ function goNextPage() {
 
 function showMyLists() {
   state.curPage = 0;
-  console.log(state.curPage);
   showData(Object.values(getMyLists()));
 }
 
@@ -77,7 +85,7 @@ function filterByGenre(e) {
   );
   sortRatingBtn.selectedIndex = 0;
   state.curPage = 0;
-  if (state.selectedGenre === "All") {
+  if (state.selectedGenre === "All Genres") {
     showData(filmsData);
   } else {
     showData(newFilterData);
@@ -102,7 +110,7 @@ function sortByRating(e) {
   return;
 }
 export {
-  addToList,
+  addRemoveInList,
   search,
   goPrevPage,
   goNextPage,

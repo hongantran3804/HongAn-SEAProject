@@ -12,7 +12,6 @@ import {
   popup,
 } from "./domElements.js";
 import { showData } from "./ui.js";
-import { getMyLists } from "./storage.js";
 import {
   search,
   goPrevPage,
@@ -45,6 +44,5 @@ filterGenreBtn.addEventListener("change", filterByGenre);
 sortRatingBtn.addEventListener("change", sortByRating);
 
 document.addEventListener("DOMContentLoaded", () => {
-  localStorage.clear();
   showData(filmsData);
 });
