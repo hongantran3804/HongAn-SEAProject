@@ -15,7 +15,7 @@ const state = {
   selectedGenre: "All Genres",
   curPage: 0,
 };
-function addToList(e) {
+function addRemoveMyList(e) {
   const myLists = getMyLists();
   if (e.target.innerText === "Added") {
     return;
@@ -112,7 +112,7 @@ function sortByRating(e) {
   return;
 }
 export {
-  addToList,
+  addRemoveMyList,
   search,
   goPrevPage,
   goNextPage,

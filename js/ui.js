@@ -9,7 +9,7 @@ import {
   myListsBtn,
 } from "./domElements.js";
 import { getMyLists, saveCurFilmData } from "./storage.js";
-import { addToList } from "./utils.js";
+import { addRemoveMyList } from "./utils.js";
 import { state } from "./utils.js";
 
 function setGenre(genreSet) {
@@ -117,7 +117,7 @@ export function showData(data, insideMyList = false) {
     }
   });
   document.querySelectorAll(".add-to-list").forEach((btn) => {
-    btn.addEventListener("click", addToList);
+    btn.addEventListener("click", addRemoveMyList);
   });
 
   pageNumber.innerText = `Page ${state.curPage + 1}/${Math.ceil(
