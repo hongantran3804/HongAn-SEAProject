@@ -1,31 +1,72 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>LA TV Shows | Home</title>
-    <meta name="description" content="A Catalog of Shows Set in Los Angeles" />
-    <link rel="stylesheet" href="style.css" />
-    <script type="text/javascript" src="scripts.js"></script>
-  </head>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HongAn-Movie-Catalog</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="popup">
+            <span class="popup-title">Who's Watching?</span>
+            <div class="popup-btns">
+                <div class="popup-btn">
+                    <img src="./assets/blueFace.png" alt="blueFace">
+                    <span>Recruiter</span>
+                </div>
+                <div class="popup-btn">
+                    <img src="./assets/grayFace.png" alt="blueFace">
+                    <span>Developer</span>
+                </div>
+            </div>
+        </div>
+        <div class="app">
+            <nav class="navBar">
+                <div class="navBar-container">
+                    <div class="headerName">🎬 Movie Catalog</div>
+                    <div class="menu">
+                        <div class="allFilms">FILMS</div>
+                        <div class="myLists">MY LISTS</div>
+                    </div>
+                </div>
+            </nav>
+            <main class="main">
+                <section class="main-container">
+                    <section class="mainTitle">All Films (100)</section>
+                    <section class="filter-container">
+                        <div class="filterOption">
+                            <select title="GENRE"
+                                class="filter-genre-button">
+                            </select>
+                            <select title="Sort" class="filter-sort-button">
+                                <option value="all" selected disabled>Sort By
+                                    Rating
+                                </option>
+                                <option value=-1>Low to High</option>
+                                <option value=1>High to Low</option>
+                            </select></div>
 
-  <body>
-    <header class="main-header">
-      <h1 class="title">LA TV Shows</h1>
-    </header>
-    <div id="card-container"></div>
-    <div class="card" style="display: none">
-      <div class="card-content">
-        <h2>TV Show Title</h2>
-        <img src="" alt="TV Show Poster" />
-        <ul>
-          <li>Bullet Point 1</li>
-          <li>Bullet Point 2</li>
-          <li>Bullet Point 3</li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer">
-      <button onclick="quoteAlert();">Get A Quote!</button>
-      <button onclick="removeLastCard();">Remove A Card!</button>
-    </div>
-  </body>
+                        <div class="searchOption">
+                            <input type="text" id="searchInput"
+                                placeholder="Search..." />
+                            <div class="searchIcon-container"><img
+                                    src="./assets/search.png" alt="search icon"
+                                    width="24" height="24">
+                            </div>
+                        </div>
+                    </section>
+                    <section class="films-container">
+                    </section>
+                    <section class="pagination-container">
+                        <div class="pagination-button" id="prevPage">
+                        </div>
+                        <span class="page-number"></span>
+                        <div class="pagination-button" id="nextPage">
+                        </div>
+                    </section>
+                </section>
+            </main>
+        </div>
+    </body>
+    <script src="./js/script.js" type="module"></script>
 </html>
