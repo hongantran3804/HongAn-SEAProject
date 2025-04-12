@@ -9,7 +9,7 @@ import {
   myListsBtn,
 } from "./domElements.js";
 import { getMyLists, saveCurFilmData } from "./storage.js";
-import { addRemoveInList } from "./utils.js";
+import { addToList } from "./utils.js";
 import { state } from "./utils.js";
 
 function setGenre(genreSet) {
@@ -29,7 +29,7 @@ function setGenre(genreSet) {
   }
 }
 
-export function showData(data) {
+export function showData(data, insideMyList = false) {
   const genreSet = new Set();
   mainTitle.innerText = `${state.selectedGenre} (${data.length})`;
   filmsContainer.innerHTML = "";
@@ -100,7 +100,9 @@ export function showData(data) {
       <button class="add-to-list" id="${film.original_title}">
         ${
           film.original_title in getMyLists()
-            ? "Remove from My List"
+            ? insideMyList
+              ? "Remove"
+              : "Added"
             : "Add to My List"
         }
       </button>
@@ -115,14 +117,8 @@ export function showData(data) {
     }
   });
   document.querySelectorAll(".add-to-list").forEach((btn) => {
-    btn.addEventListener("click", addRemoveInList);
+    btn.addEventListener("click", addToList);
   });
-
-  if (filmsContainer.children.length >= 4) {
-    filmsContainer.style.overflowY = "scroll";
-  } else {
-    filmsContainer.style.overflowY = "hidden";
-  }
 
   pageNumber.innerText = `Page ${state.curPage + 1}/${Math.ceil(
     data.length / 10

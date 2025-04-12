@@ -201,7 +201,7 @@ body {
   align-items: start;
   gap: 2rem;
   flex-direction: column;
-  overflow-y: hidden;
+  overflow-y: scroll;
 }
 
 .films-container::-webkit-scrollbar-thumb {

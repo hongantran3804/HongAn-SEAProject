@@ -6,24 +6,26 @@ import {
   saveCurFilmData,
 } from "./storage.js";
 import { showData } from "./ui.js";
-import { myListsBtn, searchInput } from "./domElements.js";
+import {
+  myListsBtn,
+  searchInput,
+} from "./domElements.js";
 import { sortRatingBtn } from "./domElements.js";
 const state = {
   selectedGenre: "All Genres",
   curPage: 0,
 };
-function addRemoveInList(e) {
-  console.log(e.target.innerText);
+function addToList(e) {
   const myLists = getMyLists();
-  if (e.target.innerText === "Remove from My List") {
-    delete myLists[e.target.id];
-    const curFilmData = getCurFilmData();
-    saveMyLists(myLists);
-    saveCurFilmData();
-    showData(curFilmData.filter((film) => film.original_title !== e.target.id));
+  if (e.target.innerText === "Added") {
     return;
   }
-
+  if (e.target.innerText === "Remove") {
+    delete myLists[e.target.id];
+    saveMyLists(myLists);
+    showData(Object.values(myLists), true);
+    return
+  }
   const filmTitle = e.target.id;
   const filmObject = filmsData.find(
     (film) => film.original_title === filmTitle
@@ -75,7 +77,7 @@ function goNextPage() {
 
 function showMyLists() {
   state.curPage = 0;
-  showData(Object.values(getMyLists()));
+  showData(Object.values(getMyLists()), true);
 }
 
 function filterByGenre(e) {
@@ -110,7 +112,7 @@ function sortByRating(e) {
   return;
 }
 export {
-  addRemoveInList,
+  addToList,
   search,
   goPrevPage,
   goNextPage,
