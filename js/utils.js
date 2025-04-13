@@ -9,10 +9,12 @@ import {
 import { showData } from "./ui.js";
 import { myListsBtn, searchInput } from "./domElements.js";
 import { sortRatingBtn } from "./domElements.js";
+
 const state = {
   selectedGenre: "All Genres",
   curPage: 0,
 };
+
 function addRemoveMyList(e) {
   const myLists = getMyLists();
   if (e.target.innerText === "Added") {
@@ -30,8 +32,10 @@ function addRemoveMyList(e) {
   );
 
   myLists[filmTitle] = filmObject;
+
   saveMyLists(myLists);
   showData(getCurFilmData(), getPosState());
+  return;
 }
 
 function search() {
@@ -52,6 +56,7 @@ function search() {
       return true;
     }
   });
+
   savePosState(false);
   showData(filteredData, getPosState());
   return;
@@ -67,6 +72,7 @@ function goPrevPage() {
 
 function goNextPage() {
   const curFilmData = getCurFilmData();
+
   if (state.curPage < Math.floor(curFilmData.length / 10)) {
     state.curPage++;
     showData(curFilmData, getPosState());
@@ -76,23 +82,28 @@ function goNextPage() {
 
 function showMyLists() {
   state.curPage = 0;
+
   savePosState(true);
   showData(Object.values(getMyLists()), getPosState());
+  return;
 }
 
 function filterByGenre(e) {
   state.selectedGenre = e.target.value;
-  savePosState(false);
   const newFilterData = filmsData.filter((film) =>
     film.genres.split(" ").includes(state.selectedGenre)
   );
+
   sortRatingBtn.selectedIndex = 0;
   state.curPage = 0;
+
+  savePosState(false);
   if (state.selectedGenre === "All Genres") {
     showData(filmsData, getPosState());
   } else {
     showData(newFilterData, getPosState());
   }
+
   return;
 }
 
@@ -109,6 +120,7 @@ function sortByRating(e) {
       (film1, film2) => film2.vote_average - film1.vote_average
     );
   }
+
   showData(newFilterData, getPosState());
   return;
 }
@@ -119,11 +131,14 @@ function searchByKeyBoard(e) {
 }
 
 function showAllFilms() {
-  savePosState(false);
   state.selectedGenre = "All Genres";
   state.curPage = 0;
+
+  savePosState(false);
   showData(filmsData, getPosState());
+  return;
 }
+
 export {
   addRemoveMyList,
   search,

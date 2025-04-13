@@ -23,18 +23,16 @@ import {
   searchByKeyBoard,
 } from "./js/utils.js";
 
-myListsBtn.addEventListener("click", showMyLists);
-
-filmsBtn.addEventListener("click", showAllFilms);
-searchIcon.addEventListener("click", search);
-searchInput.addEventListener("input", searchByKeyBoard);
 popupBtns.forEach((btn) => {
   btn.addEventListener("click", () => {
     popup.style.display = "none";
   });
   return;
 });
-
+myListsBtn.addEventListener("click", showMyLists);
+filmsBtn.addEventListener("click", showAllFilms);
+searchIcon.addEventListener("click", search);
+searchInput.addEventListener("input", searchByKeyBoard);
 prevBtn.addEventListener("click", goPrevPage);
 nextBtn.addEventListener("click", goNextPage);
 filterGenreBtn.addEventListener("change", filterByGenre);

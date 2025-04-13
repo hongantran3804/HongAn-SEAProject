@@ -20,6 +20,7 @@ function setGenre(genreSet) {
   } else {
     filterGenreBtn.innerHTML = `<option value="All Genres">All Genres</option>`;
   }
+
   for (const genre of genreSet) {
     if (genre === state.selectedGenre) {
       continue;
@@ -28,6 +29,7 @@ function setGenre(genreSet) {
     <option value=${genre}>${genre}</option>
     `;
   }
+  return;
 }
 
 export function showData(data, insideMyList = false) {
@@ -67,6 +69,7 @@ export function showData(data, insideMyList = false) {
     filmArticle.classList.add("film");
     const genres = film.genres.split(" ");
     let genreList = "";
+
     genres.forEach((genre) => {
       const genreButton = document.createElement("div");
       genreButton.classList.add("film-genre-button");
@@ -74,6 +77,7 @@ export function showData(data, insideMyList = false) {
       genreList += genreButton.outerHTML;
       genreSet.add(genre);
     });
+
     filmArticle.innerHTML = `
   <div class="film-img-container">
     <img src="./assets/filmImage.png" class="film-img">
@@ -110,6 +114,7 @@ export function showData(data, insideMyList = false) {
     </div>
   </div>
 `;
+
     if (
       index >= state.curPage * 10 &&
       index < Math.min((state.curPage + 1) * 10, data.length)
@@ -117,6 +122,7 @@ export function showData(data, insideMyList = false) {
       filmsContainer.appendChild(filmArticle);
     }
   });
+
   document.querySelectorAll(".add-to-list").forEach((btn) => {
     btn.addEventListener("click", addRemoveMyList);
   });
@@ -125,6 +131,9 @@ export function showData(data, insideMyList = false) {
     data.length / 10
   )}`;
   pagnitionContainer.style.display = "flex";
+
   saveCurFilmData(data);
   setGenre(genreSet);
+
+  return;
 }
