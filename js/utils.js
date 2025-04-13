@@ -42,10 +42,7 @@ function addRemoveMyList(e) {
 
 function search() {
   const searchValue = searchInput.value.toLowerCase();
-
-  if (searchValue === "") {
-    return;
-  }
+  
   const filteredData = filmsData.filter((film) => {
     if (
       String(film.original_title).toLowerCase().includes(searchValue) ||
@@ -124,7 +121,7 @@ function sortByRating(e) {
       (film1, film2) => film2.vote_average - film1.vote_average
     );
   }
-  
+
   state.curPage = 0;
   showData(newFilterData, getPosState());
   return;
