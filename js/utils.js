@@ -124,7 +124,8 @@ function sortByRating(e) {
       (film1, film2) => film2.vote_average - film1.vote_average
     );
   }
-
+  
+  state.curPage = 0;
   showData(newFilterData, getPosState());
   return;
 }
