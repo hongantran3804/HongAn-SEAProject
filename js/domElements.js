@@ -12,6 +12,7 @@ const filmsBtn = document.querySelector(".allFilms");
 const popup = document.querySelector(".popup");
 const pagnitionContainer = document.querySelector(".pagination-container");
 const mainTitle = document.querySelector(".mainTitle");
+
 export {
   filmsContainer,
   popupBtns,

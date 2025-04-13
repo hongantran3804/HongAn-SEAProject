@@ -37,7 +37,6 @@ prevBtn.addEventListener("click", goPrevPage);
 nextBtn.addEventListener("click", goNextPage);
 filterGenreBtn.addEventListener("change", filterByGenre);
 sortRatingBtn.addEventListener("change", sortByRating);
-
 document.addEventListener("DOMContentLoaded", () => {
   showData(filmsData);
 });

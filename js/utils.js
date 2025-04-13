@@ -7,7 +7,7 @@ import {
   getPosState,
 } from "./storage.js";
 import { showData } from "./ui.js";
-import { myListsBtn, searchInput } from "./domElements.js";
+import { searchInput } from "./domElements.js";
 import { sortRatingBtn } from "./domElements.js";
 
 const state = {
@@ -17,20 +17,22 @@ const state = {
 
 function addRemoveMyList(e) {
   const myLists = getMyLists();
+
   if (e.target.innerText === "Added") {
     return;
   }
+
   if (e.target.innerText === "Remove") {
     delete myLists[e.target.id];
     saveMyLists(myLists);
     showData(Object.values(myLists), getPosState());
     return;
   }
+
   const filmTitle = e.target.id;
   const filmObject = filmsData.find(
     (film) => film.original_title === filmTitle
   );
-
   myLists[filmTitle] = filmObject;
 
   saveMyLists(myLists);
@@ -56,7 +58,8 @@ function search() {
       return true;
     }
   });
-
+  
+  state.curPage = 0;
   savePosState(false);
   showData(filteredData, getPosState());
   return;
@@ -67,16 +70,17 @@ function goPrevPage() {
     state.curPage--;
     showData(getCurFilmData(), getPosState());
   }
+
   return;
 }
 
 function goNextPage() {
   const curFilmData = getCurFilmData();
-
   if (state.curPage < Math.floor(curFilmData.length / 10)) {
     state.curPage++;
     showData(curFilmData, getPosState());
   }
+
   return;
 }
 
@@ -97,13 +101,13 @@ function filterByGenre(e) {
   sortRatingBtn.selectedIndex = 0;
   state.curPage = 0;
 
-  savePosState(false);
   if (state.selectedGenre === "All Genres") {
     showData(filmsData, getPosState());
   } else {
     showData(newFilterData, getPosState());
   }
 
+  savePosState(false);
   return;
 }
 
@@ -125,7 +129,7 @@ function sortByRating(e) {
   return;
 }
 
-function searchByKeyBoard(e) {
+function searchByKeyBoard() {
   search();
   return;
 }

@@ -1,4 +1,3 @@
-import { filmsData } from "../data/films.js";
 import {
   filmsContainer,
   filterGenreBtn,
