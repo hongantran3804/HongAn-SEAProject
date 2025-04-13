@@ -11,7 +11,7 @@ import {
   filmsBtn,
   popup,
 } from "./js/domElements.js";
-import { showData } from "./js/ui.js";
+import { showData, showAllFilms } from "./js/ui.js";
 import {
   search,
   goPrevPage,
@@ -19,18 +19,15 @@ import {
   filterByGenre,
   sortByRating,
   showMyLists,
+  
+  searchByKeyBoard,
 } from "./js/utils.js";
 
 myListsBtn.addEventListener("click", showMyLists);
 
-filmsBtn.addEventListener("click", () => showData(filmsData));
+filmsBtn.addEventListener("click", showAllFilms);
 searchIcon.addEventListener("click", search);
-searchInput.addEventListener("keyup", (e) => {
-  if (e.key === "Enter") {
-    search();
-  }
-  return;
-});
+searchInput.addEventListener("input", searchByKeyBoard);
 popupBtns.forEach((btn) => {
   btn.addEventListener("click", () => {
     popup.style.display = "none";

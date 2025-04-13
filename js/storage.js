@@ -13,3 +13,13 @@ export function getCurFilmData() {
 export function saveCurFilmData(data) {
   localStorage.setItem("curFilmData", JSON.stringify(data));
 }
+
+export function savePosState(newState) {
+  localStorage.setItem("posState", JSON.stringify(newState));
+}
+
+export function getPosState() {
+  return JSON.parse(localStorage.getItem("posState")) || false;
+}
+
+

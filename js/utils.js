@@ -3,13 +3,11 @@ import {
   saveMyLists,
   getCurFilmData,
   getMyLists,
-  saveCurFilmData,
+  savePosState,
+  getPosState,
 } from "./storage.js";
 import { showData } from "./ui.js";
-import {
-  myListsBtn,
-  searchInput,
-} from "./domElements.js";
+import { myListsBtn, searchInput } from "./domElements.js";
 import { sortRatingBtn } from "./domElements.js";
 const state = {
   selectedGenre: "All Genres",
@@ -23,8 +21,8 @@ function addRemoveMyList(e) {
   if (e.target.innerText === "Remove") {
     delete myLists[e.target.id];
     saveMyLists(myLists);
-    showData(Object.values(myLists), true);
-    return
+    showData(Object.values(myLists), getPosState());
+    return;
   }
   const filmTitle = e.target.id;
   const filmObject = filmsData.find(
@@ -33,7 +31,7 @@ function addRemoveMyList(e) {
 
   myLists[filmTitle] = filmObject;
   saveMyLists(myLists);
-  showData(getCurFilmData());
+  showData(getCurFilmData(), getPosState());
 }
 
 function search() {
@@ -54,14 +52,15 @@ function search() {
       return true;
     }
   });
-  showData(filteredData);
+  savePosState(false);
+  showData(filteredData, getPosState());
   return;
 }
 
 function goPrevPage() {
   if (state.curPage > 0) {
     state.curPage--;
-    showData(getCurFilmData());
+    showData(getCurFilmData(), getPosState());
   }
   return;
 }
@@ -70,27 +69,29 @@ function goNextPage() {
   const curFilmData = getCurFilmData();
   if (state.curPage < Math.floor(curFilmData.length / 10)) {
     state.curPage++;
-    showData(curFilmData);
+    showData(curFilmData, getPosState());
   }
   return;
 }
 
 function showMyLists() {
   state.curPage = 0;
-  showData(Object.values(getMyLists()), true);
+  savePosState(true);
+  showData(Object.values(getMyLists()), getPosState());
 }
 
 function filterByGenre(e) {
   state.selectedGenre = e.target.value;
+  savePosState(false);
   const newFilterData = filmsData.filter((film) =>
     film.genres.split(" ").includes(state.selectedGenre)
   );
   sortRatingBtn.selectedIndex = 0;
   state.curPage = 0;
   if (state.selectedGenre === "All Genres") {
-    showData(filmsData);
+    showData(filmsData, getPosState());
   } else {
-    showData(newFilterData);
+    showData(newFilterData, getPosState());
   }
   return;
 }
@@ -108,9 +109,17 @@ function sortByRating(e) {
       (film1, film2) => film2.vote_average - film1.vote_average
     );
   }
-  showData(newFilterData);
+  showData(newFilterData, getPosState());
   return;
 }
+
+
+
+function searchByKeyBoard(e) {
+  search();
+  return;
+}
+
 export {
   addRemoveMyList,
   search,
@@ -119,5 +128,6 @@ export {
   filterByGenre,
   sortByRating,
   showMyLists,
+  searchByKeyBoard,
   state,
 };
