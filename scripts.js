@@ -11,7 +11,7 @@ import {
   filmsBtn,
   popup,
 } from "./js/domElements.js";
-import { showData, showAllFilms } from "./js/ui.js";
+import { showData } from "./js/ui.js";
 import {
   search,
   goPrevPage,
@@ -19,7 +19,7 @@ import {
   filterByGenre,
   sortByRating,
   showMyLists,
-  
+  showAllFilms,
   searchByKeyBoard,
 } from "./js/utils.js";
 

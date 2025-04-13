@@ -12,7 +12,6 @@ import {
 import { getMyLists, saveCurFilmData } from "./storage.js";
 import { addRemoveMyList } from "./utils.js";
 import { state } from "./utils.js";
-import { savePosState, getPosState } from "./storage.js";
 
 function setGenre(genreSet) {
   if (state.selectedGenre !== "All Genres") {
@@ -128,11 +127,4 @@ export function showData(data, insideMyList = false) {
   pagnitionContainer.style.display = "flex";
   saveCurFilmData(data);
   setGenre(genreSet);
-}
-
-export function showAllFilms() {
-  savePosState(false);
-  state.selectedGenre = "All Genres";
-  state.curPage = 0;
-  showData(filmsData, getPosState());
 }

@@ -113,13 +113,17 @@ function sortByRating(e) {
   return;
 }
 
-
-
 function searchByKeyBoard(e) {
   search();
   return;
 }
 
+function showAllFilms() {
+  savePosState(false);
+  state.selectedGenre = "All Genres";
+  state.curPage = 0;
+  showData(filmsData, getPosState());
+}
 export {
   addRemoveMyList,
   search,
@@ -129,5 +133,6 @@ export {
   sortByRating,
   showMyLists,
   searchByKeyBoard,
+  showAllFilms,
   state,
 };
