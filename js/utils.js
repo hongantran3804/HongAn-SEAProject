@@ -42,7 +42,7 @@ function addRemoveMyList(e) {
 
 function search() {
   const searchValue = searchInput.value.toLowerCase();
-  
+
   const filteredData = filmsData.filter((film) => {
     if (
       String(film.original_title).toLowerCase().includes(searchValue) ||
@@ -55,8 +55,9 @@ function search() {
       return true;
     }
   });
-  
+
   state.curPage = 0;
+  state.selectedGenre = searchValue !== "" ? searchInput.value : "All Genres";
   savePosState(false);
   showData(filteredData, getPosState());
   return;
@@ -104,6 +105,7 @@ function filterByGenre(e) {
     showData(newFilterData, getPosState());
   }
 
+  searchInput.value = "";
   savePosState(false);
   return;
 }
@@ -136,6 +138,7 @@ function showAllFilms() {
   state.selectedGenre = "All Genres";
   state.curPage = 0;
 
+  searchInput.value = "";
   savePosState(false);
   showData(filmsData, getPosState());
   return;
